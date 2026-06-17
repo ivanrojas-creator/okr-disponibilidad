@@ -1,0 +1,204 @@
+{
+  "incs": {
+    "2026-3-EDC Puebla": [
+      {
+        "id": "INC-0001",
+        "descripcion": "Sistema eDC no carga imágenes para el procesamiento\n",
+        "fechaInicio": "2026-04-07",
+        "horaInicio": "11:28",
+        "fechaFin": "2026-04-07",
+        "horaFin": "12:01",
+        "ticket": "4851",
+        "areaImpacto": "Infraestructura",
+        "sistemaAfectado": "EDC",
+        "clasificacion": "Crítico",
+        "factores": [
+          "Infraestructura",
+          "Monitoreo",
+          "Operativo",
+          "Configuración"
+        ],
+        "tipoActivo": "Servidor VM CS",
+        "causa": "Cambio de horario automático\n",
+        "impacto": "La operación CDP detenida\n",
+        "accion": "1. Actualización de hora del servidor (Infraestructura) 2. Se actualizaron carpetas y registros de evidencias (Desarrollo)",
+        "accionesPreventivas": "Checklist y monitoreo",
+        "leccionesAprendidas": "Revisiones próximas a cambios de horario.\n",
+        "comentarios": "Tener un checklist de servidores para comprobar los cambios de horarios, revisar antes del 1 de noviembre. Agregar tarea en calendario de Google",
+        "_duracionMin": 33,
+        "dia": 7,
+        "_saved": true
+      },
+      {
+        "id": "INC-0002",
+        "descripcion": "Sistema eDC no carga imágenes para el procesamiento\n",
+        "fechaInicio": "2026-04-08",
+        "horaInicio": "11:47",
+        "fechaFin": "2026-04-08",
+        "horaFin": "11:56",
+        "ticket": "4871",
+        "areaImpacto": "Infraestructura",
+        "sistemaAfectado": "EDC",
+        "clasificacion": "Crítico",
+        "factores": [
+          "Operativo",
+          "Configuración",
+          "Infraestructura",
+          "Monitoreo"
+        ],
+        "tipoActivo": "Servidor VW CS",
+        "causa": "Cambio de horario automático\n",
+        "impacto": "La operación de CDP detenida.\n",
+        "accion": "1. Se actualizó el nombre de la carpeta de las evidencias.\n",
+        "accionesPreventivas": "Checklist y monitoreo\n",
+        "leccionesAprendidas": "Revisar previamente los cambios de horario automático en todos los servidores\n",
+        "comentarios": "En espera de implementación de un checklist",
+        "_duracionMin": 9,
+        "dia": 8,
+        "_saved": true
+      }
+    ],
+    "2026-3-EDC Mexibus": [],
+    "2026-2-EDC Mexibus": [
+      {
+        "id": "INC-0006",
+        "descripcion": "Sin acceso a EDC desde CV Toluca y CPD.",
+        "fechaInicio": "2026-03-06",
+        "horaInicio": "12:58",
+        "fechaFin": "2026-03-06",
+        "horaFin": "13:28",
+        "ticket": "",
+        "areaImpacto": "Infraestructura",
+        "sistemaAfectado": "EDC",
+        "clasificacion": "Crítico",
+        "factores": [
+          "Infraestructura"
+        ],
+        "tipoActivo": "Firewall",
+        "causa": "Falla en el servicio Telmex.",
+        "impacto": "No es posible realizar la validación por parte de los oficiales.\nNo es posible procesar imágenes desde el CPD.",
+        "accion": "Se conmuto el enlace dedicado de Metrocarrier",
+        "accionesPreventivas": "Monitorear de forma continua el estado de los enlaces (principal y secundario).",
+        "leccionesAprendidas": "Es fundamental contar con mecanismos de conmutación funcionales y validados periódicamente.",
+        "comentarios": "",
+        "_duracionMin": 30,
+        "dia": 6,
+        "_saved": true
+      },
+      {
+        "id": "INC-0009",
+        "descripcion": "Sin acceso a EDC, Oficiales no pueden validar .\nCPD no puede procesar imágenes.",
+        "fechaInicio": "2026-03-08",
+        "horaInicio": "12:30",
+        "fechaFin": "2026-03-08",
+        "horaFin": "13:00",
+        "ticket": "",
+        "areaImpacto": "Infraestructura",
+        "sistemaAfectado": "EDC",
+        "clasificacion": "Crítico",
+        "factores": [
+          "Infraestructura"
+        ],
+        "tipoActivo": "Firewall",
+        "causa": "Carrier Telmex sin servicio.",
+        "impacto": "No es posible realizar la validación por parte de los oficiales.\nNo es posible procesar imágenes desde el CPD.",
+        "accion": "Se conmutó el enlace dedicado de Metrocarrier.",
+        "accionesPreventivas": "Se confirma la estabilidad del enlace de Metrocarrier, por lo que se configura como enlace principal, quedando Telmex como enlace secundario.",
+        "leccionesAprendidas": "Se recomienda mantener el enlace dedicado como principal, debido a que cuenta con un SLA más exigente que garantiza mayor disponibilidad y estabilidad del servicio.",
+        "comentarios": "",
+        "_duracionMin": 30,
+        "dia": 8,
+        "_saved": true
+      }
+    ],
+    "2026-2-EDC Puebla": [
+      {
+        "id": "INC-0010",
+        "descripcion": "Sin acceso a EDC desde CPD.",
+        "fechaInicio": "2026-03-18",
+        "horaInicio": "06:58",
+        "fechaFin": "2026-03-18",
+        "horaFin": "07:03",
+        "ticket": "",
+        "areaImpacto": "Infraestructura",
+        "sistemaAfectado": "EDC",
+        "clasificacion": "Crítico",
+        "factores": [
+          "Infraestructura"
+        ],
+        "tipoActivo": "Fortigate",
+        "causa": "Intermitencia y alta latencia en el servicio de internet por parte del Carrier.",
+        "impacto": "CPD sin acceso al EDC para el procesamiento de imágenes.",
+        "accion": "Se realizó monitoreo del enlace y se validó la estabilidad del servicio una vez finalizada la intermitencia por parte del Carrier.",
+        "accionesPreventivas": "Implementar monitoreo proactivo del enlace para detectar intermitencias y alta latencia.",
+        "leccionesAprendidas": "Es fundamental contar con monitoreo proactivo para detectar degradaciones en tiempo real.",
+        "comentarios": "",
+        "_duracionMin": 5,
+        "dia": 18,
+        "_saved": true
+      },
+      {
+        "id": "INC-0012",
+        "descripcion": "Sin acceso al EDC para el procesamiento de imágenes.",
+        "fechaInicio": "2026-03-28",
+        "horaInicio": "08:21",
+        "fechaFin": "2026-03-28",
+        "horaFin": "08:42",
+        "ticket": "",
+        "areaImpacto": "Infraestructura",
+        "sistemaAfectado": "EDC",
+        "clasificacion": "Crítico",
+        "factores": [],
+        "tipoActivo": "Firewall",
+        "causa": "Se presenta interrupción en la conectividad de la VPN, afectando la comunicación entre CPD y Puebla Movilidad",
+        "impacto": "La indisponibilidad de la VPN provoca la interrupción total del procesamiento de imágenes.",
+        "accion": "Se realiza un refresh de la VPN, restableciendo la comunicación.",
+        "accionesPreventivas": "Implementar monitoreo proactivo sobre el estado de la VPN.\nConfigurar alertas ante caídas o pérdida de conectividad.",
+        "leccionesAprendidas": "Ante fallas de conectividad, la ejecución de un refresh de la VPN puede restablecer rápidamente la comunicación, por lo que debe contemplarse como parte de los procedimientos de atención inicial.\nVersión más técnica:",
+        "comentarios": "",
+        "_duracionMin": 21,
+        "dia": 28,
+        "_saved": true
+      }
+    ],
+    "2026-4-EDC Puebla": [],
+    "2026-4-EDC Mexibus": [
+      {
+        "id": "INC-0014",
+        "descripcion": "EDC MEXIBÚS PRESENTA LENTITUD EN CARGA DE IMÁGENES.",
+        "fechaInicio": "2026-05-23",
+        "horaInicio": "12:10",
+        "fechaFin": "2026-05-23",
+        "horaFin": "12:21",
+        "ticket": "",
+        "areaImpacto": "Infraestructura",
+        "sistemaAfectado": "EDC",
+        "clasificacion": "Medio",
+        "factores": [
+          "Infraestructura"
+        ],
+        "tipoActivo": "Servidor",
+        "causa": "CONSUMO EXCESIVO DE PROCESADOR POR MULTIPLES VENTANAS ABIERTAS DE FORTICLIENT",
+        "impacto": "Saturación de procesos en servidor.",
+        "accion": "SE FINALIZAN TAREAS DESDE EL ADMINISTRADOR DE TAREAS",
+        "accionesPreventivas": "",
+        "leccionesAprendidas": "",
+        "comentarios": "",
+        "_duracionMin": 11,
+        "dia": 23,
+        "_saved": true
+      }
+    ]
+  },
+  "counter": 15,
+  "minutos": {
+    "2026-3-EDC Puebla-7": 33,
+    "2026-3-EDC Puebla-8": 9,
+    "2026-3-EDC Mexibus-6": 0,
+    "2026-2-EDC Mexibus-6": 30,
+    "2026-2-EDC Mexibus-8": 30,
+    "2026-2-EDC Puebla-18": 5,
+    "2026-2-EDC Puebla-28": 21,
+    "2026-4-EDC Mexibus-23": 11
+  }
+}

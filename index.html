@@ -145,6 +145,7 @@ function App() {
 
   const [showConfig, setShowConfig] = useState(!ghConfig.owner);
   const [configMsg, setConfigMsg] = useState("");
+  const [resetMsg, setResetMsg] = useState("");
 
   useEffect(() => {
     if (!ghConfig.owner) return;
@@ -512,9 +513,12 @@ function App() {
                 const ni = Object.fromEntries(Object.entries(incidentes).filter(([k])=>!k.startsWith(prefix)));
                 setMinutos(nm); setIncidentes(ni);
                 persist(ni, counter, nm);
+                setResetMsg(`✓ ${MESES[mes]} ${anio} limpiado correctamente`);
+                setTimeout(()=>setResetMsg(""), 3500);
               }} style={{marginLeft:"auto",padding:"5px 12px",borderRadius:20,border:"1px solid #fca5a5",cursor:"pointer",fontSize:12,fontWeight:500,background:"#fee2e2",color:"#991b1b"}}>
                 🗑 Limpiar mes
               </button>
+              {resetMsg && <span style={{fontSize:12,color:"#065f46",background:"#d1fae5",padding:"4px 12px",borderRadius:20,border:"1px solid #6ee7b7"}}>{resetMsg}</span>}
             </div>
             {(()=>{ const p=proyFiltro,mm=minMes(p),d=dispMes(p),b=badge(d),margen=limMes-mm; return (
               <div style={{display:"flex",gap:12,padding:"10px 14px",borderBottom:"1px solid var(--color-border-tertiary)",flexWrap:"wrap"}}>

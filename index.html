@@ -501,10 +501,20 @@ function App() {
         {/* TAB 0 */}
         {tab===0&&(
           <div>
-            <div style={{display:"flex",gap:6,padding:"12px 14px",flexWrap:"wrap",borderBottom:"1px solid var(--color-border-tertiary)"}}>
+            <div style={{display:"flex",gap:6,padding:"12px 14px",flexWrap:"wrap",borderBottom:"1px solid var(--color-border-tertiary)",alignItems:"center"}}>
               {PROYECTOS.map(p=>{ const d=dispMes(p),b=badge(d); return (
                 <button key={p} onClick={()=>setProyFiltro(p)} style={{padding:"5px 12px",borderRadius:20,border:`1px solid ${proyFiltro===p?"var(--color-text-primary)":"var(--color-border-primary)"}`,cursor:"pointer",fontSize:12,fontWeight:500,background:proyFiltro===p?"var(--color-text-primary)":b.bg,color:proyFiltro===p?"var(--color-background-primary)":b.c}}>{p}</button>
               );})}
+              <button onClick={()=>{
+                if(!window.confirm(`¿Limpiar todos los minutos e incidentes de ${MESES[mes]} ${anio}?\n\nEsto restablece a cero todos los proyectos del mes. No se puede deshacer.`)) return;
+                const prefix = `${anio}-${mes}-`;
+                const nm = Object.fromEntries(Object.entries(minutos).filter(([k])=>!k.startsWith(prefix)));
+                const ni = Object.fromEntries(Object.entries(incidentes).filter(([k])=>!k.startsWith(prefix)));
+                setMinutos(nm); setIncidentes(ni);
+                persist(ni, counter, nm);
+              }} style={{marginLeft:"auto",padding:"5px 12px",borderRadius:20,border:"1px solid #fca5a5",cursor:"pointer",fontSize:12,fontWeight:500,background:"#fee2e2",color:"#991b1b"}}>
+                🗑 Limpiar mes
+              </button>
             </div>
             {(()=>{ const p=proyFiltro,mm=minMes(p),d=dispMes(p),b=badge(d),margen=limMes-mm; return (
               <div style={{display:"flex",gap:12,padding:"10px 14px",borderBottom:"1px solid var(--color-border-tertiary)",flexWrap:"wrap"}}>

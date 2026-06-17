@@ -189,54 +189,7 @@
         "_saved": true
       }
     ],
-    "2026-5-EDC Puebla": [
-      {
-        "id": "INC-0016",
-        "descripcion": "CAIDA DEMO",
-        "fechaInicio": "2026-06-17",
-        "horaInicio": "08:01",
-        "fechaFin": "2026-06-17",
-        "horaFin": "13:01",
-        "ticket": "",
-        "areaImpacto": "Desarrollo",
-        "sistemaAfectado": "",
-        "clasificacion": "Medio",
-        "factores": [],
-        "tipoActivo": "",
-        "causa": "",
-        "impacto": "",
-        "accion": "",
-        "accionesPreventivas": "",
-        "leccionesAprendidas": "",
-        "comentarios": "",
-        "_duracionMin": 300,
-        "dia": 17,
-        "_saved": true
-      },
-      {
-        "id": "INC-0019",
-        "descripcion": "Falla en sistema eDriving Control Puebla",
-        "fechaInicio": "2026-06-01",
-        "horaInicio": "08:22",
-        "fechaFin": "2026-06-01",
-        "horaFin": "08:24",
-        "ticket": "4025",
-        "areaImpacto": "Infraestructura",
-        "sistemaAfectado": "EDC",
-        "clasificacion": "CrÃ­tico",
-        "factores": [],
-        "tipoActivo": "Servidor",
-        "causa": "performance de los servidores y NAS,",
-        "impacto": "eDriving Control detenido",
-        "accion": "Se realizaron mejoras en el performance ",
-        "accionesPreventivas": "Monitoreo de servers",
-        "leccionesAprendidas": "Administrar almacenamientos en unidad C",
-        "comentarios": "Se confirma con Oswaldo via whatsapp",
-        "_duracionMin": 2,
-        "dia": 1,
-        "_saved": true
-      }
-    ]
+    "2026-5-EDC Puebla": []
   },
   "counter": 20,
   "minutos": {

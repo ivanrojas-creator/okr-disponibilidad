@@ -58,6 +58,16 @@ async function ghSaveData(data) {
   const { owner, repo, token } = ghConfig;
   if (!owner || !repo || !token) { console.warn("GitHub no configurado"); return; }
   const url = `${GITHUB_API}/repos/${owner}/${repo}/contents/datos_okr.json`;
+
+  // Si no tenemos el SHA, lo obtenemos ahora (necesario para actualizar archivos existentes)
+  if (!currentSha) {
+    try {
+      const headers = { "Accept": "application/vnd.github.v3+json", "Authorization": `token ${token}` };
+      const r = await fetch(url, { headers });
+      if (r.ok) { const f = await r.json(); currentSha = f.sha; }
+    } catch(e) { console.warn("No se pudo obtener SHA:", e); }
+  }
+
   const raw = JSON.stringify(data, null, 2);
   // btoa con soporte Unicode
   const content = btoa(
@@ -71,7 +81,9 @@ async function ghSaveData(data) {
       "Content-Type": "application/json",
       "Accept": "application/vnd.github.v3+json"
     },
-    body: JSON.stringify({ message: "OKR update", content, sha: currentSha })
+    body: JSON.stringify(currentSha
+      ? { message: "OKR update", content, sha: currentSha }
+      : { message: "OKR update", content })
   });
   if (!resp.ok) {
     const txt = await resp.text();

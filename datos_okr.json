@@ -319,10 +319,36 @@
         "_duracionMin": 24,
         "dia": 18,
         "_saved": true
+      },
+      {
+        "id": "INC-0028",
+        "descripcion": "intermitencia en sistema EDC Trolebús",
+        "fechaInicio": "2026-06-18",
+        "horaInicio": "19:54",
+        "fechaFin": "2026-06-18",
+        "horaFin": "20:18",
+        "ticket": "",
+        "areaImpacto": "Infraestructura y Desarrollo",
+        "sistemaAfectado": "EDC",
+        "clasificacion": "Medio",
+        "factores": [
+          "Operativo",
+          "Infraestructura"
+        ],
+        "tipoActivo": "",
+        "causa": "El consumo de IIS fue alto consumiendo un 98% de memoria segunda interrupción parcial",
+        "impacto": "Lentitud y en los últimos minutos",
+        "accion": "Reinicio de IIS completo, no por aplicativo backend",
+        "accionesPreventivas": "Revisar con alertas el consumo, que no sea mayo a 90%",
+        "leccionesAprendidas": "Revisar y saber procesos en segundo plano que consuman RAM en el servidor",
+        "comentarios": "",
+        "_duracionMin": 24,
+        "dia": 18,
+        "_saved": true
       }
     ]
   },
-  "counter": 27,
+  "counter": 29,
   "minutos": {
     "2026-3-EDC Puebla-7": 33,
     "2026-3-EDC Puebla-8": 9,

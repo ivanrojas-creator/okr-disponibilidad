@@ -395,6 +395,31 @@
         "_duracionMin": 16,
         "dia": 16,
         "_saved": true
+      },
+      {
+        "id": "INC-0037",
+        "descripcion": "El sistema quedó interrumpido",
+        "fechaInicio": "2026-06-16",
+        "horaInicio": "14:03",
+        "fechaFin": "2026-06-16",
+        "horaFin": "14:12",
+        "ticket": "sinticket",
+        "areaImpacto": "Infraestructura y Desarrollo",
+        "sistemaAfectado": "",
+        "clasificacion": "Medio",
+        "factores": [
+          "Operativo"
+        ],
+        "tipoActivo": "NAS",
+        "causa": "-",
+        "impacto": "-",
+        "accion": "-",
+        "accionesPreventivas": "-",
+        "leccionesAprendidas": "-",
+        "comentarios": "-",
+        "_duracionMin": 9,
+        "dia": 16,
+        "_saved": true
       }
     ],
     "2026-5-EDC Trolebus": [
@@ -475,7 +500,7 @@
       }
     ]
   },
-  "counter": 37,
+  "counter": 38,
   "minutos": {
     "2026-3-EDC Puebla-7": 33,
     "2026-3-EDC Puebla-8": 9,
@@ -490,6 +515,6 @@
     "2026-5-EDC Trolebus-18": 7,
     "2026-5-EDC Mexibus-8": 18,
     "2026-5-EDC Mexibus-9": 5,
-    "2026-5-EDC Mexibus-16": 16
+    "2026-5-EDC Mexibus-16": 9
   }
 }

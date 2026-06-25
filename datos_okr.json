@@ -420,6 +420,29 @@
         "_duracionMin": 9,
         "dia": 16,
         "_saved": true
+      },
+      {
+        "id": "INC-0038",
+        "descripcion": "Sin acceso a edc",
+        "fechaInicio": "2026-06-17",
+        "horaInicio": "12:46",
+        "fechaFin": "2026-06-17",
+        "horaFin": "14:08",
+        "ticket": "5652",
+        "areaImpacto": "Infraestructura",
+        "sistemaAfectado": "",
+        "clasificacion": "Medio",
+        "factores": [],
+        "tipoActivo": "",
+        "causa": "PENDIENTE",
+        "impacto": "PENDIENTE",
+        "accion": "-",
+        "accionesPreventivas": "-",
+        "leccionesAprendidas": "-",
+        "comentarios": "- LA RESOLUCIÓN FUÉ INFORMADA VÍA TICKET",
+        "_duracionMin": 82,
+        "dia": 17,
+        "_saved": true
       }
     ],
     "2026-5-EDC Trolebus": [
@@ -500,7 +523,7 @@
       }
     ]
   },
-  "counter": 38,
+  "counter": 39,
   "minutos": {
     "2026-3-EDC Puebla-7": 33,
     "2026-3-EDC Puebla-8": 9,
@@ -515,6 +538,7 @@
     "2026-5-EDC Trolebus-18": 7,
     "2026-5-EDC Mexibus-8": 18,
     "2026-5-EDC Mexibus-9": 5,
-    "2026-5-EDC Mexibus-16": 9
+    "2026-5-EDC Mexibus-16": 9,
+    "2026-5-EDC Mexibus-17": 82
   }
 }

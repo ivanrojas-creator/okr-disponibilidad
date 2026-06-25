@@ -344,6 +344,31 @@
         "_duracionMin": 18,
         "dia": 8,
         "_saved": true
+      },
+      {
+        "id": "INC-0034",
+        "descripcion": "EL sistema quedó congelado \"cargando\" con todos los usuarios",
+        "fechaInicio": "2026-06-09",
+        "horaInicio": "15:03",
+        "fechaFin": "2026-06-09",
+        "horaFin": "15:08",
+        "ticket": "SinTicket",
+        "areaImpacto": "Desarrollo",
+        "sistemaAfectado": "",
+        "clasificacion": "Alto",
+        "factores": [
+          "Operativo"
+        ],
+        "tipoActivo": "",
+        "causa": "PENDIENTE",
+        "impacto": "-",
+        "accion": "-",
+        "accionesPreventivas": "-",
+        "leccionesAprendidas": "-",
+        "comentarios": "-",
+        "_duracionMin": 5,
+        "dia": 9,
+        "_saved": true
       }
     ],
     "2026-5-EDC Trolebus": [
@@ -424,7 +449,7 @@
       }
     ]
   },
-  "counter": 34,
+  "counter": 35,
   "minutos": {
     "2026-3-EDC Puebla-7": 33,
     "2026-3-EDC Puebla-8": 9,
@@ -437,6 +462,7 @@
     "2026-5-EDC Puebla-17": 1,
     "2026-5-EDC Mexibus-18": 21,
     "2026-5-EDC Trolebus-18": 7,
-    "2026-5-EDC Mexibus-8": 18
+    "2026-5-EDC Mexibus-8": 18,
+    "2026-5-EDC Mexibus-9": 5
   }
 }

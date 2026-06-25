@@ -319,6 +319,31 @@
         "_duracionMin": 7,
         "dia": 8,
         "_saved": true
+      },
+      {
+        "id": "INC-0033",
+        "descripcion": "El sistema quedó congelado",
+        "fechaInicio": "2026-06-08",
+        "horaInicio": "19:55",
+        "fechaFin": "2026-06-08",
+        "horaFin": "20:13",
+        "ticket": "SinTicket",
+        "areaImpacto": "Infraestructura y Desarrollo",
+        "sistemaAfectado": "EDC",
+        "clasificacion": "Medio",
+        "factores": [
+          "Infraestructura"
+        ],
+        "tipoActivo": "",
+        "causa": "Pendiente",
+        "impacto": "Detuvo operación",
+        "accion": "Pendiente",
+        "accionesPreventivas": "-",
+        "leccionesAprendidas": "-",
+        "comentarios": "-",
+        "_duracionMin": 18,
+        "dia": 8,
+        "_saved": true
       }
     ],
     "2026-5-EDC Trolebus": [
@@ -399,7 +424,7 @@
       }
     ]
   },
-  "counter": 33,
+  "counter": 34,
   "minutos": {
     "2026-3-EDC Puebla-7": 33,
     "2026-3-EDC Puebla-8": 9,
@@ -412,6 +437,6 @@
     "2026-5-EDC Puebla-17": 1,
     "2026-5-EDC Mexibus-18": 21,
     "2026-5-EDC Trolebus-18": 7,
-    "2026-5-EDC Mexibus-8": 7
+    "2026-5-EDC Mexibus-8": 18
   }
 }

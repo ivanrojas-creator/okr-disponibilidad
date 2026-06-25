@@ -354,7 +354,7 @@
         "horaFin": "15:08",
         "ticket": "SinTicket",
         "areaImpacto": "Desarrollo",
-        "sistemaAfectado": "",
+        "sistemaAfectado": "EDC",
         "clasificacion": "Alto",
         "factores": [
           "Operativo"

@@ -369,6 +369,32 @@
         "_duracionMin": 5,
         "dia": 9,
         "_saved": true
+      },
+      {
+        "id": "INC-0036",
+        "descripcion": "No se podía iniciar sesión, y sacó a todos los usuarios del sistema",
+        "fechaInicio": "2026-06-16",
+        "horaInicio": "12:09",
+        "fechaFin": "2026-06-16",
+        "horaFin": "12:25",
+        "ticket": "Pendiente",
+        "areaImpacto": "Infraestructura y Desarrollo",
+        "sistemaAfectado": "EDC",
+        "clasificacion": "Alto",
+        "factores": [
+          "Operativo",
+          "Infraestructura"
+        ],
+        "tipoActivo": "NAS",
+        "causa": "Pendiente",
+        "impacto": "-",
+        "accion": "-",
+        "accionesPreventivas": "-",
+        "leccionesAprendidas": "-",
+        "comentarios": "-",
+        "_duracionMin": 16,
+        "dia": 16,
+        "_saved": true
       }
     ],
     "2026-5-EDC Trolebus": [
@@ -449,7 +475,7 @@
       }
     ]
   },
-  "counter": 35,
+  "counter": 37,
   "minutos": {
     "2026-3-EDC Puebla-7": 33,
     "2026-3-EDC Puebla-8": 9,
@@ -463,6 +489,7 @@
     "2026-5-EDC Mexibus-18": 21,
     "2026-5-EDC Trolebus-18": 7,
     "2026-5-EDC Mexibus-8": 18,
-    "2026-5-EDC Mexibus-9": 5
+    "2026-5-EDC Mexibus-9": 5,
+    "2026-5-EDC Mexibus-16": 16
   }
 }

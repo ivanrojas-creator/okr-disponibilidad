@@ -26,9 +26,39 @@
         "dia": 4,
         "_saved": true
       }
+    ],
+    "2026-6-EDC Puebla": [
+      {
+        "id": "INC-0002",
+        "descripcion": "Error al dar \"Evaluacoión OK\" en procesamiento",
+        "fechaInicio": "2026-07-02",
+        "horaInicio": "07:14",
+        "fechaFin": "2026-07-02",
+        "horaFin": "09:35",
+        "ticket": "5870 ",
+        "areaImpacto": "Infraestructura y Desarrollo",
+        "sistemaAfectado": "EDC",
+        "clasificacion": "Crítico",
+        "factores": [
+          "Operativo",
+          "Configuración",
+          "Infraestructura",
+          "Monitoreo"
+        ],
+        "tipoActivo": "-",
+        "causa": "-",
+        "impacto": "-",
+        "accion": "-",
+        "accionesPreventivas": "-",
+        "leccionesAprendidas": "-",
+        "comentarios": "Aldair Glez",
+        "_duracionMin": 141,
+        "dia": 2,
+        "_saved": true
+      }
     ]
   },
-  "counter": 2,
+  "counter": 3,
   "minutos": {
     "2026-4-EDC Puebla-25": 13,
     "2026-4-EDC Queretaro-26": 5,
@@ -37,6 +67,7 @@
     "2026-5-EDC Puebla-27": 35,
     "2026-5-EDC Puebla-18": 30,
     "2026-3-EDC Mexibus-4": 8,
-    "2026-6-EDC Mexibus-4": 9
+    "2026-6-EDC Mexibus-4": 9,
+    "2026-6-EDC Puebla-2": 141
   }
 }

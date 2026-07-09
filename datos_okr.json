@@ -1,6 +1,34 @@
 {
-  "incs": {},
-  "counter": 1,
+  "incs": {
+    "2026-6-EDC Mexibus": [
+      {
+        "id": "INC-0001",
+        "descripcion": "Sistema eDC no carga nada",
+        "fechaInicio": "2026-07-04",
+        "horaInicio": "14:37",
+        "fechaFin": "2026-07-04",
+        "horaFin": "14:46",
+        "ticket": "S/T",
+        "areaImpacto": "Desarrollo",
+        "sistemaAfectado": "EDC",
+        "clasificacion": "Crítico",
+        "factores": [
+          "Operativo"
+        ],
+        "tipoActivo": "-",
+        "causa": "-",
+        "impacto": "-",
+        "accion": "-",
+        "accionesPreventivas": "-",
+        "leccionesAprendidas": "-",
+        "comentarios": "Corregido / Revisado por David Hernández",
+        "_duracionMin": 9,
+        "dia": 4,
+        "_saved": true
+      }
+    ]
+  },
+  "counter": 2,
   "minutos": {
     "2026-4-EDC Puebla-25": 13,
     "2026-4-EDC Queretaro-26": 5,
@@ -8,6 +36,7 @@
     "2026-5-EDC Mexibus-29": 9,
     "2026-5-EDC Puebla-27": 35,
     "2026-5-EDC Puebla-18": 30,
-    "2026-3-EDC Mexibus-4": 8
+    "2026-3-EDC Mexibus-4": 8,
+    "2026-6-EDC Mexibus-4": 9
   }
 }

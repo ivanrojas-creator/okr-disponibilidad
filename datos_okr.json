@@ -11,7 +11,7 @@
         "ticket": "S/T",
         "areaImpacto": "Desarrollo",
         "sistemaAfectado": "EDC",
-        "clasificacion": "Crítico",
+        "clasificacion": "CrÃ­tico",
         "factores": [
           "Operativo"
         ],
@@ -21,7 +21,7 @@
         "accion": "-",
         "accionesPreventivas": "-",
         "leccionesAprendidas": "-",
-        "comentarios": "Corregido / Revisado por David Hernández",
+        "comentarios": "Corregido / Revisado por David HernÃ¡ndez",
         "_duracionMin": 9,
         "dia": 4,
         "_saved": true
@@ -30,7 +30,7 @@
     "2026-6-EDC Puebla": [
       {
         "id": "INC-0002",
-        "descripcion": "Error al dar \"Evaluacoión OK\" en procesamiento",
+        "descripcion": "Error al dar \"EvaluacoiÃ³n OK\" en procesamiento",
         "fechaInicio": "2026-07-02",
         "horaInicio": "07:14",
         "fechaFin": "2026-07-02",
@@ -38,10 +38,10 @@
         "ticket": "5870 ",
         "areaImpacto": "Infraestructura y Desarrollo",
         "sistemaAfectado": "EDC",
-        "clasificacion": "Crítico",
+        "clasificacion": "CrÃ­tico",
         "factores": [
           "Operativo",
-          "Configuración",
+          "ConfiguraciÃ³n",
           "Infraestructura",
           "Monitoreo"
         ],
@@ -55,10 +55,33 @@
         "_duracionMin": 141,
         "dia": 2,
         "_saved": true
+      },
+      {
+        "id": "INC-0003",
+        "descripcion": "Certificado de seguridad caducó en Puebla",
+        "fechaInicio": "2026-07-15",
+        "horaInicio": "11:23",
+        "fechaFin": "2026-07-15",
+        "horaFin": "11:53",
+        "ticket": "-",
+        "areaImpacto": "Desarrollo",
+        "sistemaAfectado": "EDC",
+        "clasificacion": "Crítico",
+        "factores": [],
+        "tipoActivo": "Servidor",
+        "causa": "Certificado de seguridad no se renovó",
+        "impacto": "CDP Detenido",
+        "accion": "Se regeneraron los certificados",
+        "accionesPreventivas": "Identificación de la causa de la no regeneración automática del certificado",
+        "leccionesAprendidas": "Revisión periodica o creación de alertamiento para su regenreación con mayor tiempo de anticipaciuón",
+        "comentarios": "David H resolvió incidencia",
+        "_duracionMin": 30,
+        "dia": 15,
+        "_saved": true
       }
     ]
   },
-  "counter": 3,
+  "counter": 4,
   "minutos": {
     "2026-4-EDC Puebla-25": 13,
     "2026-4-EDC Queretaro-26": 5,
@@ -68,6 +91,7 @@
     "2026-5-EDC Puebla-18": 30,
     "2026-3-EDC Mexibus-4": 8,
     "2026-6-EDC Mexibus-4": 9,
-    "2026-6-EDC Puebla-2": 141
+    "2026-6-EDC Puebla-2": 141,
+    "2026-6-EDC Puebla-15": 30
   }
 }

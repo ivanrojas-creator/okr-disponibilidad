@@ -79,9 +79,34 @@
         "dia": 15,
         "_saved": true
       }
+    ],
+    "2026-6-Livink Puebla": [
+      {
+        "id": "INC-0004",
+        "descripcion": "Los certificados del servidor APPs no se renovó automáticamente",
+        "fechaInicio": "2026-07-15",
+        "horaInicio": "11:08",
+        "fechaFin": "2026-07-15",
+        "horaFin": "11:49",
+        "ticket": "-",
+        "areaImpacto": "Desarrollo",
+        "sistemaAfectado": "Livink",
+        "clasificacion": "Crítico",
+        "factores": [],
+        "tipoActivo": "Servidor",
+        "causa": "Certificado de los servidores",
+        "impacto": "Operativo detenido",
+        "accion": "Reovación de certificado",
+        "accionesPreventivas": "Identificación de periodos de caducidad",
+        "leccionesAprendidas": "Revisión contante de las las fechas de caducidad de los certificados",
+        "comentarios": "-",
+        "_duracionMin": 41,
+        "dia": 15,
+        "_saved": true
+      }
     ]
   },
-  "counter": 4,
+  "counter": 5,
   "minutos": {
     "2026-4-EDC Puebla-25": 13,
     "2026-4-EDC Queretaro-26": 5,
@@ -92,6 +117,7 @@
     "2026-3-EDC Mexibus-4": 8,
     "2026-6-EDC Mexibus-4": 9,
     "2026-6-EDC Puebla-2": 141,
-    "2026-6-EDC Puebla-15": 30
+    "2026-6-EDC Puebla-15": 30,
+    "2026-6-Livink Puebla-15": 41
   }
 }

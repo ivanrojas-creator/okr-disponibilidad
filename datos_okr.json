@@ -1,6 +1,32 @@
 {
-  "incs": {},
-  "counter": 1,
+  "incs": {
+    "2026-9-EDC Puebla": [
+      {
+        "id": "INC-0001",
+        "descripcion": "DEMO DE CAIDA",
+        "fechaInicio": "2026-10-16",
+        "horaInicio": "10:00",
+        "fechaFin": "2026-10-09",
+        "horaFin": "10:33",
+        "ticket": "",
+        "areaImpacto": "Infraestructura",
+        "sistemaAfectado": "",
+        "clasificacion": "Medio",
+        "factores": [],
+        "tipoActivo": "",
+        "causa": "",
+        "impacto": "",
+        "accion": "",
+        "accionesPreventivas": "",
+        "leccionesAprendidas": "",
+        "comentarios": "",
+        "_duracionMin": null,
+        "dia": 1,
+        "_saved": true
+      }
+    ]
+  },
+  "counter": 2,
   "minutos": {
     "2026-9-EDC Puebla-1": 9
   }

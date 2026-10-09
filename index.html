@@ -39,60 +39,125 @@ let ghConfig = (() => {
 })();
 let currentSha = null;
 
-async function ghFetchData() {
-  const { owner, repo, token } = ghConfig;
-  if (!owner || !repo) return null;
-  const url = `${GITHUB_API}/repos/${owner}/${repo}/contents/datos_okr.json`;
+// Decodifica base64 → texto UTF-8 (antes se perdían acentos: "Crítico" → "CrÃ­tico")
+function b64ToUtf8(b64) {
+  const bin = atob(b64.replace(/\n/g, ""));
+  const bytes = Uint8Array.from(bin, c => c.charCodeAt(0));
+  return new TextDecoder("utf-8").decode(bytes);
+}
+function utf8ToB64(str) {
+  const bytes = new TextEncoder().encode(str);
+  let bin = ""; bytes.forEach(b => { bin += String.fromCharCode(b); });
+  return btoa(bin);
+}
+// Repara textos que ya quedaron con doble codificación en el JSON
+function fixMojibake(v) {
+  if (typeof v === "string") {
+    if (!/[ÃÂ]/.test(v)) return v;
+    try { return new TextDecoder("utf-8",{fatal:true}).decode(Uint8Array.from(v, c => c.charCodeAt(0))); }
+    catch(e) { return v; }
+  }
+  if (Array.isArray(v)) return v.map(fixMojibake);
+  if (v && typeof v === "object") return Object.fromEntries(Object.entries(v).map(([k,x]) => [fixMojibake(k), fixMojibake(x)]));
+  return v;
+}
+
+function ghError(status, txt) {
+  if (status === 401) return "Token inválido o vencido. Genera uno nuevo y vuelve a configurar GitHub.";
+  if (status === 403) return "El token no tiene permiso de escritura (Contents: Read and write) o se alcanzó el límite de la API.";
+  if (status === 404) return "No se encontró el repositorio o el token no tiene acceso a él.";
+  if (status === 409 || status === 422) return "Conflicto de versión con GitHub. Recarga la página.";
+  return `Error de GitHub (${status}) ${txt || ""}`.trim();
+}
+
+function contentsUrl() {
+  const { owner, repo } = ghConfig;
+  return `${GITHUB_API}/repos/${owner}/${repo}/contents/datos_okr.json`;
+}
+
+// Devuelve { data, sha } · data=null si el archivo aún no existe · lanza Error si falla
+async function ghFetchFile(useToken = true) {
   const headers = { "Accept": "application/vnd.github.v3+json" };
-  if (token) headers["Authorization"] = `token ${token}`;
-  try {
-    const resp = await fetch(url, { headers });
-    if (!resp.ok) { console.warn("GitHub fetch:", resp.status); return null; }
-    const file = await resp.json();
-    currentSha = file.sha;
-    return JSON.parse(atob(file.content.replace(/\n/g, "")));
-  } catch(e) { console.error("ghFetchData", e); return null; }
+  if (useToken && ghConfig.token) headers["Authorization"] = `Bearer ${ghConfig.token}`;
+  const resp = await fetch(`${contentsUrl()}?t=${Date.now()}`, { headers, cache: "no-store" });
+  if (resp.status === 404) return { data: null, sha: null, missing: true };
+  if (!resp.ok) { const e = new Error(ghError(resp.status)); e.status = resp.status; throw e; }
+  const file = await resp.json();
+  return { data: fixMojibake(JSON.parse(b64ToUtf8(file.content))), sha: file.sha };
+}
+
+async function ghFetchData() {
+  const { owner, repo } = ghConfig;
+  if (!owner || !repo) return null;
+  const r = await ghFetchFile(true);
+  currentSha = r.sha;
+  return r.data || {};
+}
+
+async function ghPut(data) {
+  const body = { message: "OKR update", content: utf8ToB64(JSON.stringify(data, null, 2)) };
+  if (currentSha) body.sha = currentSha;
+  return fetch(contentsUrl(), {
+    method: "PUT",
+    cache: "no-store",
+    headers: {
+      "Authorization": `Bearer ${ghConfig.token}`,
+      "Content-Type": "application/json",
+      "Accept": "application/vnd.github.v3+json"
+    },
+    body: JSON.stringify(body)
+  });
 }
 
 async function ghSaveData(data) {
   const { owner, repo, token } = ghConfig;
-  if (!owner || !repo || !token) { console.warn("GitHub no configurado"); return; }
-  const url = `${GITHUB_API}/repos/${owner}/${repo}/contents/datos_okr.json`;
-
-  // Si no tenemos el SHA, lo obtenemos ahora (necesario para actualizar archivos existentes)
-  if (!currentSha) {
-    try {
-      const headers = { "Accept": "application/vnd.github.v3+json", "Authorization": `token ${token}` };
-      const r = await fetch(url, { headers });
-      if (r.ok) { const f = await r.json(); currentSha = f.sha; }
-    } catch(e) { console.warn("No se pudo obtener SHA:", e); }
+  if (!owner || !repo || !token) throw new Error("GitHub no está configurado.");
+  if (!currentSha) { const r = await ghFetchFile(true); currentSha = r.sha; }
+  let resp = await ghPut(data);
+  if (resp.status === 409 || resp.status === 422) {
+    // SHA desactualizado: se obtiene el vigente y se reintenta una vez
+    const r = await ghFetchFile(true); currentSha = r.sha;
+    resp = await ghPut(data);
   }
-
-  const raw = JSON.stringify(data, null, 2);
-  // btoa con soporte Unicode
-  const content = btoa(
-    encodeURIComponent(raw).replace(/%([0-9A-F]{2})/g,
-      (_, p1) => String.fromCharCode(parseInt(p1, 16)))
-  );
-  const resp = await fetch(url, {
-    method: "PUT",
-    headers: {
-      "Authorization": `token ${token}`,
-      "Content-Type": "application/json",
-      "Accept": "application/vnd.github.v3+json"
-    },
-    body: JSON.stringify(currentSha
-      ? { message: "OKR update", content, sha: currentSha }
-      : { message: "OKR update", content })
-  });
   if (!resp.ok) {
     const txt = await resp.text();
     console.error("GitHub save error:", resp.status, txt);
-    throw new Error(`GitHub save ${resp.status}`);
+    throw new Error(ghError(resp.status));
   }
   const r = await resp.json();
   currentSha = r.content.sha;
 }
+
+// Cola de guardado: agrupa cambios rápidos (debounce) y nunca envía dos PUT a la vez
+const saveQueue = { pending: null, timer: null, running: false, listeners: new Set() };
+function notifySave(state) { saveQueue.listeners.forEach(fn => fn(state)); }
+function queueSave(data) {
+  saveQueue.pending = data;
+  notifySave({ status: "pending" });
+  clearTimeout(saveQueue.timer);
+  saveQueue.timer = setTimeout(flushSave, 700);
+}
+async function flushSave() {
+  if (saveQueue.running || !saveQueue.pending) return;
+  saveQueue.running = true;
+  const data = saveQueue.pending; saveQueue.pending = null;
+  let failed = false;
+  notifySave({ status: "saving" });
+  try {
+    await ghSaveData(data);
+    notifySave(saveQueue.pending ? { status: "pending" } : { status: "saved", at: new Date() });
+  } catch (e) {
+    failed = true;
+    if (!saveQueue.pending) saveQueue.pending = data; // conservar para reintentar
+    notifySave({ status: "error", error: e.message });
+  } finally {
+    saveQueue.running = false;
+    if (saveQueue.pending && !failed) setTimeout(flushSave, 50);
+  }
+}
+window.addEventListener("beforeunload", e => {
+  if (saveQueue.pending || saveQueue.running) { e.preventDefault(); e.returnValue = ""; }
+});
 
 function saveGhConfig(cfg) {
   ghConfig = cfg;
@@ -147,22 +212,42 @@ function App() {
   const [configMsg, setConfigMsg] = useState("");
   const [resetMsg, setResetMsg] = useState("");
 
+  // Estado de carga: no se permite guardar hasta haber leído los datos de GitHub,
+  // para no sobrescribir el archivo con un tablero vacío.
+  const [loadState, setLoadState] = useState(ghConfig.owner ? "loading" : "idle");
+  const [loadError, setLoadError] = useState("");
+  const [saveError, setSaveError] = useState("");
+
   useEffect(() => {
-    if (!ghConfig.owner) return;
-    ghFetchData().then(d => {
-      if (!d) return;
-      if(d.incs) setIncidentes(d.incs);
-      if(d.counter) setCounter(d.counter);
-      if(d.minutos) setMinutos(d.minutos);
-    }).catch(() => {});
+    const fn = st => {
+      setSaving(st.status === "saving" || st.status === "pending");
+      if (st.status === "saved") { setLastSaved(st.at); setSaveError(""); }
+      if (st.status === "error") setSaveError(st.error);
+    };
+    saveQueue.listeners.add(fn);
+    return () => saveQueue.listeners.delete(fn);
   }, []);
 
+  const loadData = () => {
+    if (!ghConfig.owner) { setLoadState("idle"); return; }
+    setLoadState("loading"); setLoadError("");
+    ghFetchData().then(d => {
+      setIncidentes(d.incs || {});
+      setCounter(d.counter || 1);
+      setMinutos(d.minutos || {});
+      setLoadState("ok");
+    }).catch(e => { setLoadError(e.message); setLoadState("error"); });
+  };
+  useEffect(loadData, []);
+
   const persist = (ni, nc, nm) => {
-    setSaving(true);
-    ghSaveData({incs: ni, counter: nc, minutos: nm})
-    .then(() => setLastSaved(new Date()))
-    .catch(e => console.error(e))
-    .finally(() => setSaving(false));
+    if (loadState !== "ok") {
+      setSaveError(loadState === "idle"
+        ? "Configura GitHub para guardar los datos."
+        : "No se guardó: primero deben cargarse los datos desde GitHub.");
+      return;
+    }
+    queueSave({incs: ni, counter: nc, minutos: nm});
   };
 
   const dias = diasEnMes(mes,anio);
@@ -436,13 +521,11 @@ function App() {
             saveGhConfig(cfg);
             setShowConfig(false);
             setConfigMsg("");
-            // cargar datos con nueva config
-            ghFetchData().then(d => {
-              if (!d) return;
-              if(d.incs) setIncidentes(d.incs);
-              if(d.counter) setCounter(d.counter);
-              if(d.minutos) setMinutos(d.minutos);
-            });
+            // cargar datos con nueva config (y reintentar guardados pendientes)
+            currentSha = null;
+            loadData();
+            setSaveError("");
+            if (saveQueue.pending) flushSave();
           }} style={{padding:"7px 16px",borderRadius:7,border:"none",cursor:"pointer",background:"#1d4ed8",color:"#fff",fontWeight:600,fontSize:13}}>
             Guardar y conectar
           </button>
@@ -461,7 +544,7 @@ function App() {
         </div>
         <div style={{display:"flex",alignItems:"center",gap:10}}>
           <div style={{fontSize:11,color:saving?"#1d4ed8":"var(--color-text-secondary)",background:saving?"#dbeafe":"var(--color-background-secondary)",padding:"4px 10px",borderRadius:8,border:"1px solid var(--color-border-tertiary)"}}>
-            {saving?"Guardando...":lastSaved?`Guardado ${lastSaved.toLocaleTimeString("es-MX",{hour:"2-digit",minute:"2-digit"})}`:"Sin cambios"}
+            {saving?"Guardando...":lastSaved?`Guardado ${lastSaved.toLocaleTimeString("es-MX",{hour:"2-digit",minute:"2-digit"})}`:loadState==="loading"?"Cargando...":"Sin cambios"}
           </div>
           <button onClick={()=>setShowConfig(true)} title="Configurar GitHub" style={{border:"1px solid var(--color-border-tertiary)",background:"var(--color-background-secondary)",borderRadius:8,padding:"4px 10px",cursor:"pointer",fontSize:13,color:ghConfig.owner?"#16a34a":"#dc2626"}}>
             {ghConfig.owner?"⚙ GitHub ✓":"⚙ Configurar GitHub"}
@@ -470,6 +553,19 @@ function App() {
           <img src={LOGO_AT} alt="AutoTraffic" style={{height:40,objectFit:"contain"}}/>
         </div>
       </div>
+
+      {(loadState==="error"||saveError) && (
+        <div style={{display:"flex",alignItems:"center",gap:10,flexWrap:"wrap",background:"#fee2e2",color:"#991b1b",border:"1px solid #fca5a5",borderRadius:8,padding:"8px 12px",marginBottom:12,fontSize:13}}>
+          <strong>{loadState==="error"?"No se pudieron cargar los datos:":"No se guardaron los cambios:"}</strong>
+          <span>{loadState==="error"?loadError:saveError}</span>
+          <span style={{marginLeft:"auto",display:"flex",gap:6}}>
+            {loadState==="error"
+              ? <button onClick={loadData} style={{padding:"4px 12px",borderRadius:6,border:"1px solid #fca5a5",background:"#fff",color:"#991b1b",cursor:"pointer",fontSize:12}}>Reintentar</button>
+              : saveQueue.pending && <button onClick={()=>{setSaveError("");flushSave();}} style={{padding:"4px 12px",borderRadius:6,border:"1px solid #fca5a5",background:"#fff",color:"#991b1b",cursor:"pointer",fontSize:12}}>Reintentar guardado</button>}
+            <button onClick={()=>setShowConfig(true)} style={{padding:"4px 12px",borderRadius:6,border:"none",background:"#991b1b",color:"#fff",cursor:"pointer",fontSize:12}}>Configurar GitHub</button>
+          </span>
+        </div>
+      )}
 
       <div style={{display:"flex",gap:10,marginBottom:14,flexWrap:"wrap",alignItems:"center"}}>
         <select value={mes} onChange={e=>setMes(Number(e.target.value))} style={{...inp(),padding:"6px 12px",fontSize:14}}>

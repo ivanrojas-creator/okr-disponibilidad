@@ -4,7 +4,7 @@
       {
         "id": "INC-0001",
         "descripcion": "DEMO DE CAIDA",
-        "fechaInicio": "2026-10-16",
+        "fechaInicio": "2026-10-09",
         "horaInicio": "10:00",
         "fechaFin": "2026-10-09",
         "horaFin": "10:33",
@@ -20,14 +20,15 @@
         "accionesPreventivas": "",
         "leccionesAprendidas": "",
         "comentarios": "",
-        "_duracionMin": null,
-        "dia": 1,
+        "_duracionMin": 33,
+        "dia": 9,
         "_saved": true
       }
     ]
   },
   "counter": 2,
   "minutos": {
-    "2026-9-EDC Puebla-1": 0
+    "2026-9-EDC Puebla-1": 0,
+    "2026-9-EDC Puebla-9": 33
   }
 }

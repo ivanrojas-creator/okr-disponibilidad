@@ -10,7 +10,7 @@
         "horaFin": "10:33",
         "ticket": "",
         "areaImpacto": "Infraestructura y Desarrollo",
-        "sistemaAfectado": "",
+        "sistemaAfectado": "EDC",
         "clasificacion": "Medio",
         "factores": [],
         "tipoActivo": "",

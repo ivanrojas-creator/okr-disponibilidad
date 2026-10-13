@@ -1,10 +1,37 @@
 {
   "incs": {
-    "2026-9-EDC Puebla": []
+    "2026-9-EDC Puebla": [
+      {
+        "id": "INC-0002",
+        "descripcion": "El sistema no permite registrar procesamientos",
+        "fechaInicio": "2026-10-13",
+        "horaInicio": "07:28",
+        "fechaFin": "2026-10-13",
+        "horaFin": "09:20",
+        "ticket": "6959",
+        "areaImpacto": "Infraestructura",
+        "sistemaAfectado": "EDC",
+        "clasificacion": "Crítico",
+        "factores": [
+          "Infraestructura"
+        ],
+        "tipoActivo": "",
+        "causa": "No se tenia acceso a la NAS, no se reconocía en el servidor.",
+        "impacto": "CPD quedó detenido",
+        "accion": "Se reinició la NAS",
+        "accionesPreventivas": "",
+        "leccionesAprendidas": "",
+        "comentarios": "",
+        "_duracionMin": 112,
+        "dia": 13,
+        "_saved": true
+      }
+    ]
   },
-  "counter": 2,
+  "counter": 3,
   "minutos": {
     "2026-9-EDC Puebla-1": 0,
-    "2026-9-EDC Puebla-9": 0
+    "2026-9-EDC Puebla-9": 0,
+    "2026-9-EDC Puebla-13": 112
   }
 }
